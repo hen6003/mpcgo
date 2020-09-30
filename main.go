@@ -30,14 +30,42 @@ var lastView string
 
 func showHelp(g *gocui.Gui, v *gocui.View) error {
 	maxX, maxY := g.Size()
-	if v, err := g.SetView("help", 3, 3, maxX-3, maxY-3); err != nil {
+	if v, err := g.SetView("help", maxX/2-10, maxY/2-10, maxX/2+10, maxY/2+10); err != nil {
 		if err != gocui.ErrUnknownView {
 			return err
 		}
 
-		fmt.Fprintln(v, "Help")
-
 		lastView = g.CurrentView().Name()
+
+		helpMsg := `     Help Menu
+-------------------
+      Global
+ -----------------
+Ctrl + q/c:    Quit
+Space:        Pause
+x:           Repeat
+z:           Random
+?:             Help
+
+   Current Menu
+ -----------------
+`
+		if lastView == "main" {
+			helpMsg += `Enter:  Select Song
+c:   Clear Playlist
+r:      Remove Song
+			`
+		} else if lastView == "side" {
+			helpMsg += `Enter:     Playlist
+a:     Add Playlist
+			`
+		} else if lastView == "msg" {
+			helpMsg += `Enter:     Add Song
+q:             Exit
+			`
+		}
+
+		fmt.Fprintln(v, helpMsg)
 
 		if _, err := g.SetCurrentView("help"); err != nil {
 			return err

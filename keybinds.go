@@ -208,7 +208,7 @@ func toggleRand(g *gocui.Gui, v *gocui.View) error {
 
 func toggleRepeat(g *gocui.Gui, v *gocui.View) error {
 	status, _ := conn.Status()
-	state := status["xfade"]
+	state := status["repeat"]
 
 	if state == "1" {
 		conn.Repeat(false)

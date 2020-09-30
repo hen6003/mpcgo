@@ -21,7 +21,6 @@ func updateQueue(v *gocui.View) {
 	v.Clear()
 	fmt.Fprint(v)
 
-	// for i, _ := range queue {
 	for i := 0; i < len(queue); i++ {
 		songName := findSongName(queue[i])
 
