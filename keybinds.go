@@ -169,9 +169,26 @@ func selectSong(g *gocui.Gui, v *gocui.View) error {
 }
 
 func removeSong(g *gocui.Gui, v *gocui.View) error {
-	_, cy := v.Cursor()
+	var l string
+	var err error
 
-	conn.Delete(cy, -1)
+	_, cy := v.Cursor()
+	if l, err = v.Line(cy); err != nil {
+		l = ""
+	}
+
+	contents, _ := conn.PlaylistInfo(-1, -1)
+	index := strings.IndexAny(l, ":")
+	songStr := l[index+2:]
+
+	for _, v := range contents {
+		if findSongName(v) == songStr {
+			var pos int
+			pos, err = strconv.Atoi(v["Pos"])
+
+			conn.Delete(pos, -1)
+		}
+	}
 
 	return nil
 }
