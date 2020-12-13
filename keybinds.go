@@ -252,6 +252,27 @@ func keybindings(g *gocui.Gui) error {
 	if err := g.SetKeybinding("main", gocui.KeyArrowDown, gocui.ModNone, cursorDownMain); err != nil {
 		return err
 	}
+	if err := g.SetKeybinding("", gocui.KeyArrowUp, gocui.ModNone, cursorUp); err != nil {
+		return err
+	}
+	if err := g.SetKeybinding("side", 'l', gocui.ModNone, nextView); err != nil {
+		return err
+	}
+	if err := g.SetKeybinding("main", 'h', gocui.ModNone, nextView); err != nil {
+		return err
+	}
+	if err := g.SetKeybinding("side", 'j', gocui.ModNone, cursorDownSide); err != nil {
+		return err
+	}
+	if err := g.SetKeybinding("msg", 'j', gocui.ModNone, cursorDownMsg); err != nil {
+		return err
+	}
+	if err := g.SetKeybinding("main", 'j', gocui.ModNone, cursorDownMain); err != nil {
+		return err
+	}
+	if err := g.SetKeybinding("", 'k', gocui.ModNone, cursorUp); err != nil {
+		return err
+	}
 	if err := g.SetKeybinding("main", 'c', gocui.ModNone, clear); err != nil {
 		return err
 	}
@@ -259,9 +280,6 @@ func keybindings(g *gocui.Gui) error {
 		return err
 	}
 	if err := g.SetKeybinding("main", gocui.KeyEnter, gocui.ModNone, selectSong); err != nil {
-		return err
-	}
-	if err := g.SetKeybinding("", gocui.KeyArrowUp, gocui.ModNone, cursorUp); err != nil {
 		return err
 	}
 	if err := g.SetKeybinding("", gocui.KeyCtrlC, gocui.ModNone, quit); err != nil {
